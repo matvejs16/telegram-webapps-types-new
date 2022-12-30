@@ -3,7 +3,7 @@ export declare namespace TelegramWebApps {
     WebApp: WebApp;
   }
 
-  type EventType = 'themeChanged' | 'viewportChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked' | 'invoiceClosed';
+  type EventType = "themeChanged" | "viewportChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked" | "invoiceClosed" | "popupClosed" | "qrTextReceived" | "qrTextReceived" | "clipboardTextReceived";
 
   interface WebApp {
     /**
@@ -107,9 +107,13 @@ export declare namespace TelegramWebApps {
     /**
      * A method that opens a link in an external browser. 
      * The Web App will not be closed.
+     * 
+     * Bot API 6.4+
+     * If the optional options parameter is passed with the field try_instant_view=true, the link will be opened in Instant View mode if possible.
+     * 
      * Note that this method can be called only in response to the user interaction with the Web App interface (e.g. click inside the Web App or on the main button)
      */
-    openLink(url: string): void;
+    openLink(url: string, options?: openLinkOptions): void;
     /**
      * A method that opens a telegram link inside Telegram app. 
      * The Web App will be closed.
@@ -510,6 +514,10 @@ export declare namespace TelegramWebApps {
      * Optional. The text to be displayed under the 'Scan QR' heading, 0-64 characters.
      */
     text?: String;
+  }
+
+  interface openLinkOptions {
+    try_instant_view?: Boolean;
   }
   
 }
