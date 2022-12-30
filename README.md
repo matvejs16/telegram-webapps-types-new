@@ -9,7 +9,7 @@ TypeScript typings for Telegram Web Apps for Bots. See https://core.telegram.org
 Using `npm`
 
 ```
-npm install telegram-webapps-types
+npm install telegram-webapps-types-new
 ```
 
 ### If you are working on a `TypeScript` project
@@ -22,7 +22,7 @@ file like this:
   "compilerOptions": {
 +   "typeRoots": [
 +     "./node_modules/@types",
-+     "./node_modules/telegram-webapps-types"
++     "./node_modules/telegram-webapps-types-new"
 +   ]
   }
 }
@@ -42,7 +42,7 @@ file like this:
   "compilerOptions": {
     "typeRoots": [
       "./node_modules/@types",
-      "./node_modules/telegram-webapps-types"
+      "./node_modules/telegram-webapps-types-new"
     ]
   }
 }
