@@ -1,0 +1,26 @@
+{
+  "name": "telegram-webapps-types-new",
+  "version": "1.0.0",
+  "description": "TypeScript typings for Telegram Web Apps for Bots. See https://core.telegram.org/bots/webapps",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matvejs16/telegram-webapps-types-new.git"
+  },
+  "keywords": [
+    "typescript",
+    "bots",
+    "telegram",
+    "typings",
+    "webapps"
+  ],
+  "author": "Matvej Makushin",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matvejs16/telegram-webapps-types-new/issues"
+  },
+  "homepage": "https://github.com/matvejs16/telegram-webapps-types-new#readme"
+}
