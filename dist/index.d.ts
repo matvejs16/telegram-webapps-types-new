@@ -1,5 +1,3 @@
-type ReverseMap<T> = T[keyof T];
-
 export declare namespace TelegramWebApps {
   interface SDK {
     WebApp: WebApp;
