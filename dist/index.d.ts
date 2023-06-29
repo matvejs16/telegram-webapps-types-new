@@ -5,6 +5,8 @@ export declare namespace TelegramWebApps {
 
     type EventType = "themeChanged" | "viewportChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked" | "invoiceClosed" | "popupClosed" | "qrTextReceived" | "qrTextReceived" | "clipboardTextReceived";
 
+    type ChatTypes = "users" | "bots" | "groups" | "channels";
+
     interface WebApp {
         /**
          * A string with raw data transferred to the Web App, convenient for validating data.
@@ -102,8 +104,25 @@ export declare namespace TelegramWebApps {
         offEvent(eventType: EventType, eventHandler: () => void): void;
         /**
          * A method used to send data to the bot.
+         * 
+         * When this method is called, a service message is sent to the bot containing the data *data* of the length up to 4096 bytes, and the Web App is closed.
+         * 
+         * *This method is only available for Web Apps launched via a Keyboard button.*
          */
         sendData(data): void;
+        /**
+         * A method that inserts the bot's username and the specified inline query in the current chat's input field.
+         * 
+         * Query may be empty, in which case only the bot's username will be inserted.
+         * 
+         * Bot API 6.7+
+         * If an optional choose_chat_types parameter was passed, the client prompts the user to choose a specific chat, then opens that chat and inserts the bot's username and the specified inline query in the input field.
+         * 
+         * You can specify which types of chats the user will be able to choose from.
+         * 
+         * It can be one or more of the following types: users, bots, groups, channels.
+         */
+        switchInlineQuery(query: string, choose_chat_types?: ChatTypes[]): void;
         /**
          * A method that opens a link in an external browser. 
          * The Web App will not be closed.
