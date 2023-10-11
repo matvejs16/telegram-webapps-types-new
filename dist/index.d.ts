@@ -163,7 +163,7 @@ export declare namespace TelegramWebApps {
          * A method that shows message in a simple confirmation window with 'OK' and 'Cancel' buttons.
          * If an optional callback parameter was passed, the callback function will be called when the popup is closed and the first argument will be a boolean indicating whether the user pressed the 'OK' button.
          */
-        showConfirm(message: string, callback?: () => void): void;
+        showConfirm(message: string, callback?: (confirm: boolean) => void): void;
         /**
          * Bot API 6.4+
          * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
