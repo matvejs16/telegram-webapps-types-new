@@ -250,23 +250,23 @@ export declare namespace TelegramWebApps {
          * A method that sets the button press event handler. 
          * An alias for Telegram.WebApp.onEvent('backButtonClicked', callback)
          */
-        onClick(callback: () => void): void;
+        onClick(callback: () => void): BackButton;
         /**
          * Bot API 6.1+ 
          * A method that removes the button press event handler. 
          * An alias for Telegram.WebApp.offEvent('backButtonClicked', callback)
          */
-        offClick(callback: () => void): void;
+        offClick(callback: () => void): BackButton;
         /**
          * Bot API 6.1+ 
          * A method to make the button active and visible.
          */
-        show(): void;
+        show(): BackButton;
         /**
          * Bot API 6.1+ 
          * A method to hide the button.
          */
-        hide(): void;
+        hide(): BackButton;
     }
 
     interface MainButton {
@@ -297,44 +297,44 @@ export declare namespace TelegramWebApps {
         /**
          * A method to set the button text.
          */
-        setText(text: string): void;
+        setText(text: string): MainButton;
         /**
          * A method that sets the button press event handler. An alias for Telegram.WebApp.onEvent('mainButtonClicked', callback)
          */
-        onClick(callback: () => void): void;
+        onClick(callback: () => void): MainButton;
         /**
          * A method that removes the button press event handler.
          * An alias for Telegram.WebApp.offEvent('mainButtonClicked', callback)
          */
-        offClick(callback: () => void): void;
+        offClick(callback: () => void): MainButton;
         /**
          * A method to make the button visible.
          */
-        show(): void;
+        show(): MainButton;
         /**
          * A method to hide the button.
          */
-        hide(): void;
+        hide(): MainButton;
         /**
          * A method to enable the button.
          */
-        enable(): void;
+        enable(): MainButton;
         /**
          * A method to disable the button.
          */
-        disable(): void;
+        disable(): MainButton;
         /**
          * A method to show a loading indicator on the button.
          */
-        showProgress(leaveActive: boolean): void;
+        showProgress(leaveActive: boolean): MainButton;
         /**
          * A method to hide the loading indicator.
          */
-        hideProgress(): void;
+        hideProgress(): MainButton;
         /**
          * A method to set the button parameters.
          */
-        setParams(params: MainButtonParams): void;
+        setParams(params: MainButtonParams): MainButton;
     }
 
     interface MainButtonParams {
@@ -372,7 +372,7 @@ export declare namespace TelegramWebApps {
          * - rigid, indicates a collision between hard or inflexible UI objects,
          * - soft, indicates a collision between soft or flexible UI objects.
          */
-        impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): void;
+        impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): HapticFeedback;
         /**
          * Bot API 6.1+ 
          * A method tells that a task or action has succeeded, failed, or produced a warning. 
@@ -382,14 +382,14 @@ export declare namespace TelegramWebApps {
          * - success, indicates that a task or action has completed successfully,
          * - warning, indicates that a task or action produced a warning.
          */
-        notificationOccurred(type: "error" | "success" | "warning"): void;
+        notificationOccurred(type: "error" | "success" | "warning"): HapticFeedback;
         /**
          * Bot API 6.1+ 
          * A method tells that the user has changed a selection. 
          * The Telegram app may play the appropriate haptics.
          * Do not use this feedback when the user makes or confirms a selection; use it only when the selection changes.
          */
-        selectionChanged(): void;
+        selectionChanged(): HapticFeedback;
     }
 
     interface WebAppInitData {
