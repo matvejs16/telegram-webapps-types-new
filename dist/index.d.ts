@@ -70,6 +70,10 @@ export declare namespace TelegramWebApps {
         */
         backgroundColor: string;
         /**
+        * True, if the confirmation dialog is enabled while the user is trying to close the Mini App. False, if the confirmation dialog is disabled.
+        */
+        isClosingConfirmationEnabled: boolean;
+        /**
          * An object for controlling the back button which can be displayed in the header of the Web App in the Telegram interface.
          */
         BackButton: BackButton;
@@ -78,9 +82,17 @@ export declare namespace TelegramWebApps {
          */
         MainButton: MainButton;
         /**
+         * An object for controlling the Settings item in the context menu of the Mini App in the Telegram interface.
+         */
+        SettingsButton: SettingsButton;
+        /**
          * An object for controlling haptic feedback.
          */
         HapticFeedback: HapticFeedback;
+         /**
+         * An object for controlling cloud storage.
+         */
+        CloudStorage: CloudStorage;
         /**
          * Returns true if the user's app supports a version of the Bot API that is equal to or higher than the version passed as the parameter.
          */
@@ -204,6 +216,20 @@ export declare namespace TelegramWebApps {
          */
         readTextFromClipboard(callback?: (text: string) => void): void;
         /**
+         * Bot API 6.9+
+         * A method that shows a native popup requesting permission for the bot to send messages to the user. 
+         * If an optional callback parameter was passed, the callback function will be called when the popup is closed 
+         * and the first argument will be a boolean indicating whether the user granted this access.
+         */
+        requestWriteAccess(callback?: (confirm: boolean) => void): void;
+        /**
+         * Bot API 6.9+
+         * A method that shows a native popup prompting the user for their phone number. 
+         * If an optional callback parameter was passed, the callback function will be called when the popup is closed 
+         * and the first argument will be a boolean indicating whether the user shared its phone number.
+         */
+        requestContact(callback?: (confirm: boolean) => void): void;
+        /**
          * A method that informs the Telegram app that the Web App is ready to be displayed.
          */
         ready(): void;
@@ -320,6 +346,98 @@ export declare namespace TelegramWebApps {
          * A method to hide the button.
          */
         hide(): BackButton;
+    }
+
+    interface CloudStorage {
+        /**
+         * Bot API 6.9+ 
+         * A method that stores a value in the cloud storage using the specified key. 
+         * The key should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. 
+         * The value should contain 0-4096 characters. You can store up to 1024 keys in the cloud storage. 
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. 
+         * 
+         * In case of an error, the first argument will contain the error. 
+         * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was stored.
+         */
+        setItem(key: string, value: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
+        /**
+         * Bot API 6.9+ 
+         * A method that receives a value from the cloud storage using the specified key. 
+         * The key should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. 
+         * 
+         * In case of an error, the callback function will be called and the first argument will contain the error. 
+         * In case of success, the first argument will be null and the value will be passed as the second argument.
+         */
+        getItem(key: string, callback: (error: Error | null, value?: string) => void): CloudStorage;
+        /**
+         * Bot API 6.9+ 
+         * A method that receives values from the cloud storage using the specified keys. 
+         * The keys should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. 
+         * 
+         * In case of an error, the callback function will be called and the first argument will contain the error. 
+         * In case of success, the first argument will be null and the values will be passed as the second argument.
+         */
+        getItems(key: string, callback: (error: Error | null, value?: string) => void): CloudStorage;
+        /**
+         * Bot API 6.9+ 
+         * A method that removes a value from the cloud storage using the specified key. 
+         * The key should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. 
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. 
+         * In case of an error, the first argument will contain the error. 
+         * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was removed.
+         */
+        removeItem(key: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
+        /**
+         * Bot API 6.9+ 
+         * A method that removes values from the cloud storage using the specified keys. 
+         * The keys should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. 
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. 
+         * In case of an error, the first argument will contain the error. 
+         * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the values were removed.
+         */
+        removeItems(key: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
+        /**
+         * Bot API 6.9+ 
+         * A method that receives the list of all keys stored in the cloud storage. 
+         * 
+         * In case of an error, the callback function will be called and the first argument will contain the error. 
+         * In case of success, the first argument will be null and the list of keys will be passed as the second argument.
+         */
+        getKeys(callback: (error: Error | null, keys?: any) => void): CloudStorage;
+    }
+
+    interface SettingsButton {
+        /**
+         * 	Shows whether the context menu item is visible. Set to false by default.
+         */
+        isVisible: boolean;
+        /**
+         * Bot API 7.0+ 
+         * A method that sets the press event handler for the Settings item in the context menu. 
+         * 
+         * An alias for Telegram.WebApp.onEvent('settingsButtonClicked', callback)
+         */
+        onClick(callback: () => void): SettingsButton;
+        /**
+         * Bot API 7.0+ 
+         * A method that removes the press event handler from the Settings item in the context menu. 
+         * 
+         * An alias for Telegram.WebApp.offEvent('settingsButtonClicked', callback)
+         */
+        offClick(callback: () => void): SettingsButton;
+        /**
+         * Bot API 7.0+ 
+         * A method to make the Settings item in the context menu visible.
+         */
+        show(): SettingsButton;
+        /**
+         * Bot API 7.0+ 
+         * A method to hide the Settings item in the context menu.
+         */
+        hide(): SettingsButton;
     }
 
     interface MainButton {
