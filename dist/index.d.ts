@@ -87,8 +87,10 @@ export declare namespace TelegramWebApps {
         isVersionAtLeast(version: number): boolean;
         /**
          * Bot API 6.1+ 
-         * A method that sets the app header color. 
-         * You can only pass Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_color as a color or you can use keywords bg_color, secondary_bg_color instead.
+         * A method that sets the app header color in the #RRGGBB format.
+         * You can also use keywords bg_color and secondary_bg_color.
+         * 
+         * Up to Bot API 6.9 You can only pass Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_color as a color or bg_color, secondary_bg_color keywords.
          */
         setHeaderColor(color: "bg_color" | "secondary_bg_color" | string): void;
         /**
@@ -146,8 +148,10 @@ export declare namespace TelegramWebApps {
          */
         openLink(url: string, options?: openLinkOptions): void;
         /**
-         * A method that opens a telegram link inside Telegram app. 
-         * The Web App will be closed.
+         * A method that opens a telegram link inside the Telegram app.
+         * The Mini App will not be closed after this method is called.
+         * 
+         * Up to Bot API 7.0 The Mini App will be closed after this method is called.
          */
         openTelegramLink(url: string): void;
         /**
@@ -250,7 +254,44 @@ export declare namespace TelegramWebApps {
          * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
          */
         secondary_bg_color?: string;
-    }
+        /**
+         * Bot API 7.0+ 
+         * Header background color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-header-bg-color).
+         */
+        header_bg_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Accent text color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-accent-text-color).
+         */
+        accent_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Background color for the section in the #RRGGBB format. 
+         * It is recommended to use this in conjunction with secondary_bg_color.
+         * Also available as the CSS variable var(--tg-theme-section-bg-color).
+         */
+        section_bg_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Header text color for the section in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-section-header-text-color).
+         */
+        section_header_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Subtitle text color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-subtitle-text-color).
+         */
+        subtitle_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Text color for destructive actions in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-destructive-text-color).
+         */
+        destructive_text_color?: string;
+    }      
 
     interface BackButton {
         /**
