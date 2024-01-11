@@ -360,7 +360,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the first argument will contain the error. 
          * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was stored.
          */
-        setItem(key: string, value: string, callback?: (result:any, confirm: boolean) => void): void;
+        setItem(key: string, value: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that receives a value from the cloud storage using the specified key. 
@@ -369,7 +369,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the callback function will be called and the first argument will contain the error. 
          * In case of success, the first argument will be null and the value will be passed as the second argument.
          */
-        getItem(key: string, callback: (result:any, value?: string) => void): void;
+        getItem(key: string, callback: (error: Error | null, value?: string) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that receives values from the cloud storage using the specified keys. 
@@ -378,7 +378,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the callback function will be called and the first argument will contain the error. 
          * In case of success, the first argument will be null and the values will be passed as the second argument.
          */
-        getItems(key: string, callback: (result:any, value?: string) => void): void;
+        getItems(key: string, callback: (error: Error | null, value?: string) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that removes a value from the cloud storage using the specified key. 
@@ -388,7 +388,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the first argument will contain the error. 
          * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was removed.
          */
-        removeItem(key: string, callback?: (result:any, confirm: boolean) => void): void;
+        removeItem(key: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that removes values from the cloud storage using the specified keys. 
@@ -398,7 +398,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the first argument will contain the error. 
          * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the values were removed.
          */
-        removeItems(key: string, callback?: (result:any, confirm: boolean) => void): void;
+        removeItems(key: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that receives the list of all keys stored in the cloud storage. 
@@ -406,7 +406,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the callback function will be called and the first argument will contain the error. 
          * In case of success, the first argument will be null and the list of keys will be passed as the second argument.
          */
-        getKeys(callback: (result:any, keys?: any) => void): void;
+        getKeys(callback: (error: Error | null, keys?: any) => void): CloudStorage;
     }
 
     interface SettingsButton {
@@ -420,24 +420,24 @@ export declare namespace TelegramWebApps {
          * 
          * An alias for Telegram.WebApp.onEvent('settingsButtonClicked', callback)
          */
-        onClick(callback: () => void): void;
+        onClick(callback: () => void): SettingsButton;
         /**
          * Bot API 7.0+ 
          * A method that removes the press event handler from the Settings item in the context menu. 
          * 
          * An alias for Telegram.WebApp.offEvent('settingsButtonClicked', callback)
          */
-        offClick(callback: () => void): void;
+        offClick(callback: () => void): SettingsButton;
         /**
          * Bot API 7.0+ 
          * A method to make the Settings item in the context menu visible.
          */
-        show(): void;
+        show(): SettingsButton;
         /**
          * Bot API 7.0+ 
          * A method to hide the Settings item in the context menu.
          */
-        hide(): void;
+        hide(): SettingsButton;
     }
 
     interface MainButton {
