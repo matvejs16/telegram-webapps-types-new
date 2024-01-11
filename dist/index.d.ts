@@ -3,7 +3,19 @@ export declare namespace TelegramWebApps {
         WebApp: WebApp;
     }
 
-    type EventType = "themeChanged" | "viewportChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked" | "invoiceClosed" | "popupClosed" | "qrTextReceived" | "qrTextReceived" | "clipboardTextReceived";
+    type IEventTypes = {
+        themeChanged: () => void;
+        viewportChanged: (event: { isStateStable: boolean; }) => void;
+        mainButtonClicked: () => void;
+        backButtonClicked: () => void;
+        settingsButtonClicked: () => void;
+        invoiceClosed: (event: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void;
+        popupClosed: (event: { button_id: string | null }) => void;
+        qrTextReceived: (event: { data: string }) => void;
+        clipboardTextReceived: (event: { data: string | null }) => void;
+        writeAccessRequested: (event: { status: 'allowed' | 'cancelled' }) => void;
+        contactRequested: (event: { status: 'sent' | 'cancelled' }) => void;
+    }
 
     type ChatTypes = "users" | "bots" | "groups" | "channels";
 
@@ -87,8 +99,10 @@ export declare namespace TelegramWebApps {
         isVersionAtLeast(version: number): boolean;
         /**
          * Bot API 6.1+ 
-         * A method that sets the app header color. 
-         * You can only pass Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_color as a color or you can use keywords bg_color, secondary_bg_color instead.
+         * A method that sets the app header color in the #RRGGBB format.
+         * You can also use keywords bg_color and secondary_bg_color.
+         * 
+         * Up to Bot API 6.9 You can only pass Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_color as a color or bg_color, secondary_bg_color keywords.
          */
         setHeaderColor(color: "bg_color" | "secondary_bg_color" | string): void;
         /**
@@ -109,11 +123,11 @@ export declare namespace TelegramWebApps {
         /**
          * A method that sets the app event handler.
          */
-        onEvent(eventType: EventType, eventHandler: () => void): void;
+        onEvent<K extends keyof IEventTypes>(eventType: K, callback: IEventTypes[K]): void;
         /**
          * 	A method that deletes a previously set event handler.
          */
-        offEvent(eventType: EventType, eventHandler: () => void): void;
+        offEvent<K extends keyof IEventTypes>(eventType: K, eventHandler: () => void): void;
         /**
          * A method used to send data to the bot.
          * 
@@ -146,8 +160,10 @@ export declare namespace TelegramWebApps {
          */
         openLink(url: string, options?: openLinkOptions): void;
         /**
-         * A method that opens a telegram link inside Telegram app. 
-         * The Web App will be closed.
+         * A method that opens a telegram link inside the Telegram app.
+         * The Mini App will not be closed after this method is called.
+         * 
+         * Up to Bot API 7.0 The Mini App will be closed after this method is called.
          */
         openTelegramLink(url: string): void;
         /**
@@ -264,7 +280,44 @@ export declare namespace TelegramWebApps {
          * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
          */
         secondary_bg_color?: string;
-    }
+        /**
+         * Bot API 7.0+ 
+         * Header background color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-header-bg-color).
+         */
+        header_bg_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Accent text color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-accent-text-color).
+         */
+        accent_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Background color for the section in the #RRGGBB format. 
+         * It is recommended to use this in conjunction with secondary_bg_color.
+         * Also available as the CSS variable var(--tg-theme-section-bg-color).
+         */
+        section_bg_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Header text color for the section in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-section-header-text-color).
+         */
+        section_header_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Subtitle text color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-subtitle-text-color).
+         */
+        subtitle_text_color?: string;
+        /**
+         * Bot API 7.0+ 
+         * Text color for destructive actions in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-destructive-text-color).
+         */
+        destructive_text_color?: string;
+    }      
 
     interface BackButton {
         /**
@@ -276,23 +329,23 @@ export declare namespace TelegramWebApps {
          * A method that sets the button press event handler. 
          * An alias for Telegram.WebApp.onEvent('backButtonClicked', callback)
          */
-        onClick(callback: () => void): void;
+        onClick(callback: () => void): BackButton;
         /**
          * Bot API 6.1+ 
          * A method that removes the button press event handler. 
          * An alias for Telegram.WebApp.offEvent('backButtonClicked', callback)
          */
-        offClick(callback: () => void): void;
+        offClick(callback: () => void): BackButton;
         /**
          * Bot API 6.1+ 
          * A method to make the button active and visible.
          */
-        show(): void;
+        show(): BackButton;
         /**
          * Bot API 6.1+ 
          * A method to hide the button.
          */
-        hide(): void;
+        hide(): BackButton;
     }
 
     interface CloudStorage {
@@ -415,44 +468,44 @@ export declare namespace TelegramWebApps {
         /**
          * A method to set the button text.
          */
-        setText(text: string): void;
+        setText(text: string): MainButton;
         /**
          * A method that sets the button press event handler. An alias for Telegram.WebApp.onEvent('mainButtonClicked', callback)
          */
-        onClick(callback: () => void): void;
+        onClick(callback: () => void): MainButton;
         /**
          * A method that removes the button press event handler.
          * An alias for Telegram.WebApp.offEvent('mainButtonClicked', callback)
          */
-        offClick(callback: () => void): void;
+        offClick(callback: () => void): MainButton;
         /**
          * A method to make the button visible.
          */
-        show(): void;
+        show(): MainButton;
         /**
          * A method to hide the button.
          */
-        hide(): void;
+        hide(): MainButton;
         /**
          * A method to enable the button.
          */
-        enable(): void;
+        enable(): MainButton;
         /**
          * A method to disable the button.
          */
-        disable(): void;
+        disable(): MainButton;
         /**
          * A method to show a loading indicator on the button.
          */
-        showProgress(leaveActive: boolean): void;
+        showProgress(leaveActive: boolean): MainButton;
         /**
          * A method to hide the loading indicator.
          */
-        hideProgress(): void;
+        hideProgress(): MainButton;
         /**
          * A method to set the button parameters.
          */
-        setParams(params: MainButtonParams): void;
+        setParams(params: MainButtonParams): MainButton;
     }
 
     interface MainButtonParams {
@@ -490,7 +543,7 @@ export declare namespace TelegramWebApps {
          * - rigid, indicates a collision between hard or inflexible UI objects,
          * - soft, indicates a collision between soft or flexible UI objects.
          */
-        impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): void;
+        impactOccurred(style: "light" | "medium" | "heavy" | "rigid" | "soft"): HapticFeedback;
         /**
          * Bot API 6.1+ 
          * A method tells that a task or action has succeeded, failed, or produced a warning. 
@@ -500,14 +553,14 @@ export declare namespace TelegramWebApps {
          * - success, indicates that a task or action has completed successfully,
          * - warning, indicates that a task or action produced a warning.
          */
-        notificationOccurred(type: "error" | "success" | "warning"): void;
+        notificationOccurred(type: "error" | "success" | "warning"): HapticFeedback;
         /**
          * Bot API 6.1+ 
          * A method tells that the user has changed a selection. 
          * The Telegram app may play the appropriate haptics.
          * Do not use this feedback when the user makes or confirms a selection; use it only when the selection changes.
          */
-        selectionChanged(): void;
+        selectionChanged(): HapticFeedback;
     }
 
     interface WebAppInitData {
