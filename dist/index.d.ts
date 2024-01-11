@@ -3,7 +3,19 @@ export declare namespace TelegramWebApps {
         WebApp: WebApp;
     }
 
-    type EventType = "themeChanged" | "viewportChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked" | "invoiceClosed" | "popupClosed" | "qrTextReceived" | "qrTextReceived" | "clipboardTextReceived";
+    type IEventTypes = {
+        themeChanged: () => void;
+        viewportChanged: (event: { isStateStable: boolean; }) => void;
+        mainButtonClicked: () => void;
+        backButtonClicked: () => void;
+        settingsButtonClicked: () => void;
+        invoiceClosed: (event: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void;
+        popupClosed: (event: { button_id: string | null }) => void;
+        qrTextReceived: (event: { data: string }) => void;
+        clipboardTextReceived: (event: { data: string | null }) => void;
+        writeAccessRequested: (event: { status: 'allowed' | 'cancelled' }) => void;
+        contactRequested: (event: { status: 'sent' | 'cancelled' }) => void;
+    }
 
     type ChatTypes = "users" | "bots" | "groups" | "channels";
 
@@ -97,11 +109,11 @@ export declare namespace TelegramWebApps {
         /**
          * A method that sets the app event handler.
          */
-        onEvent(eventType: EventType, eventHandler: () => void): void;
+        onEvent<K extends keyof IEventTypes>(eventType: K, callback: IEventTypes[K]): void;
         /**
          * 	A method that deletes a previously set event handler.
          */
-        offEvent(eventType: EventType, eventHandler: () => void): void;
+        offEvent<K extends keyof IEventTypes>(eventType: K, eventHandler: () => void): void;
         /**
          * A method used to send data to the bot.
          * 
