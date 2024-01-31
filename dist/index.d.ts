@@ -3,6 +3,10 @@ export declare namespace TelegramWebApps {
         WebApp: WebApp;
     }
 
+    type openLinkOptions = {
+        try_instant_view?: Boolean;
+    }
+
     type IInvoiceStatus = 'paid' | 'cancelled' | 'failed' | 'pending';
 
     type IEventTypes = {
@@ -245,6 +249,10 @@ export declare namespace TelegramWebApps {
         close(): void;
     }
 
+    /**
+     * Mini Apps can adjust the appearance of the interface to match the Telegram user's app in real time.
+     * This object contains the user's current theme settings
+     */
     interface ThemeParams {
         /**
          * Background color in the #RRGGBB format.
@@ -319,7 +327,54 @@ export declare namespace TelegramWebApps {
          * Also available as the CSS variable var(--tg-theme-destructive-text-color).
          */
         destructive_text_color?: string;
-    }      
+    }
+
+    interface PopupParams {
+        /**
+         * Optional. The text to be displayed in the popup title, 0-64 characters.
+         */
+        title?: String;
+        /**
+         * The message to be displayed in the body of the popup, 1-256 characters.
+         */
+        message: String;
+        /**
+         * Optional. List of buttons to be displayed in the popup, 1-3 buttons.
+         * Set to [{“type”:“close”}] by default.
+         */
+        buttons?: PopupButton[];
+    }
+
+    interface ScanQrPopupParams {
+        /**
+         * Optional. The text to be displayed under the 'Scan QR' heading, 0-64 characters.
+         */
+        text?: String;
+    }
+
+    interface PopupButton {
+        /**
+         * Optional. Identifier of the button, 0-64 characters.
+         * Set to empty string by default.
+         * If the button is pressed, its id is returned in the callback and the popupClosed event.
+         */
+        id?: String;
+        /**
+         * Optional. Type of the button. Set to default by default.
+         * Can be one of these values:
+         * - default, a button with the default style,
+         * - ok, a button with the localized text “OK”,
+         * - close, a button with the localized text “Close”,
+         * - cancel, a button with the localized text “Cancel”,
+         * - destructive, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+         */
+        type?: "default" | "ok" | "close" | "cancel" | "destructive";
+        /**
+         * Optional. The text to be displayed on the button, 0-64 characters.
+         * Required if type is default or destructive. Irrelevant for other types.
+         */
+        text?: String;
+    }
 
     interface BackButton {
         /**
@@ -672,58 +727,6 @@ export declare namespace TelegramWebApps {
          */
         photo_url?: string;
     }
-
-    interface PopupParams {
-        /**
-         * Optional. The text to be displayed in the popup title, 0-64 characters.
-         */
-        title?: String;
-        /**
-         * The message to be displayed in the body of the popup, 1-256 characters.
-         */
-        message: String;
-        /**
-         * Optional. List of buttons to be displayed in the popup, 1-3 buttons.
-         * Set to [{“type”:“close”}] by default.
-         */
-        buttons?: PopupButton[];
-    }
-
-    interface PopupButton {
-        /**
-         * Optional. Identifier of the button, 0-64 characters.
-         * Set to empty string by default.
-         * If the button is pressed, its id is returned in the callback and the popupClosed event.
-         */
-        id?: String;
-        /**
-         * Optional. Type of the button. Set to default by default.
-         * Can be one of these values:
-         * - default, a button with the default style,
-         * - ok, a button with the localized text “OK”,
-         * - close, a button with the localized text “Close”,
-         * - cancel, a button with the localized text “Cancel”,
-         * - destructive, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
-         */
-        type?: "default" | "ok" | "close" | "cancel" | "destructive";
-        /**
-         * Optional. The text to be displayed on the button, 0-64 characters.
-         * Required if type is default or destructive. Irrelevant for other types.
-         */
-        text?: String;
-    }
-
-    interface ScanQrPopupParams {
-        /**
-         * Optional. The text to be displayed under the 'Scan QR' heading, 0-64 characters.
-         */
-        text?: String;
-    }
-
-    interface openLinkOptions {
-        try_instant_view?: Boolean;
-    }
-
 }
 
 
