@@ -127,7 +127,7 @@ export declare namespace TelegramWebApps {
         /**
          * 	A method that deletes a previously set event handler.
          */
-        offEvent<K extends keyof IEventTypes>(eventType: K, eventHandler: () => void): void;
+        offEvent<K extends keyof IEventTypes>(eventType: K, callback: IEventTypes[K]): void;
         /**
          * A method used to send data to the bot.
          * 
