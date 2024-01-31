@@ -135,7 +135,7 @@ export declare namespace TelegramWebApps {
          * 
          * *This method is only available for Web Apps launched via a Keyboard button.*
          */
-        sendData(data: any): void;
+        sendData(data: string): void;
         /**
          * A method that inserts the bot's username and the specified inline query in the current chat's input field.
          * 
