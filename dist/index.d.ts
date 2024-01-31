@@ -3,13 +3,15 @@ export declare namespace TelegramWebApps {
         WebApp: WebApp;
     }
 
+    type IInvoiceStatus = 'paid' | 'cancelled' | 'failed' | 'pending';
+
     type IEventTypes = {
         themeChanged: () => void;
         viewportChanged: (event: { isStateStable: boolean; }) => void;
         mainButtonClicked: () => void;
         backButtonClicked: () => void;
         settingsButtonClicked: () => void;
-        invoiceClosed: (event: { url: string; status: 'paid' | 'cancelled' | 'failed' | 'pending' }) => void;
+        invoiceClosed: (event: { url: string; status: IInvoiceStatus }) => void;
         popupClosed: (event: { button_id: string | null }) => void;
         qrTextReceived: (event: { data: string }) => void;
         clipboardTextReceived: (event: { data: string | null }) => void;
@@ -172,7 +174,7 @@ export declare namespace TelegramWebApps {
          * The Web App will receive the event invoiceClosed when the invoice is closed. 
          * If an optional callback parameter was passed, the callback function will be called and the invoice status will be passed as the first argument.
          */
-        openInvoice(url: string, callback?: (invoice_status: string) => void): void;
+        openInvoice(url: string, callback?: (invoice_status: IInvoiceStatus) => void): void;
         /**
          * Bot API 6.2+ 
          * A method that shows a native popup described by the params argument of the type PopupParams.
