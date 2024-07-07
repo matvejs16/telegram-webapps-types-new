@@ -247,6 +247,25 @@ export declare namespace TelegramWebApps {
          * A method that closes the Web App.
          */
         close(): void;
+        /**
+         * True, if vertical swipes to close or minimize the Mini App are enabled.
+         * 
+         * False, if vertical swipes to close or minimize the Mini App are disabled.
+         * 
+         * In any case, the user will still be able to minimize and close the Mini App by swiping the Mini App's header.
+         */
+        isVerticalSwipesEnabled: boolean;
+        /**
+         * Bot API 7.7+
+         * A method that enables vertical swipes to close or minimize the Mini App.
+         * For user convenience, it is recommended to always enable swipes unless they conflict with the Mini App's own gestures.
+         */
+        enableVerticalSwipes(): void;
+        /**
+         * Bot API 7.7+ A method that disables vertical swipes to close or minimize the Mini App.
+         * This method is useful if your Mini App uses swipe gestures that may conflict with the gestures for minimizing and closing the app.
+         */
+        disableVerticalSwipes(): void;
     }
 
     /**
