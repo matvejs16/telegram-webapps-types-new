@@ -13,17 +13,21 @@ export declare namespace TelegramWebApps {
         themeChanged: () => void;
         viewportChanged: (event: { isStateStable: boolean; }) => void;
         mainButtonClicked: () => void;
+        secondaryButtonClicked: () => void;
         backButtonClicked: () => void;
         settingsButtonClicked: () => void;
         invoiceClosed: (event: { url: string; status: IInvoiceStatus }) => void;
         popupClosed: (event: { button_id: string | null }) => void;
         qrTextReceived: (event: { data: string }) => void;
+        scanQrPopupClosed: () => void;
         clipboardTextReceived: (event: { data: string | null }) => void;
         writeAccessRequested: (event: { status: 'allowed' | 'cancelled' }) => void;
         contactRequested: (event: { status: 'sent' | 'cancelled' }) => void;
     }
 
     type ChatTypes = "users" | "bots" | "groups" | "channels";
+
+    type PositionTypes = "left" | "right" | "top" | "bottom";
 
     interface WebApp {
         /**
@@ -117,6 +121,11 @@ export declare namespace TelegramWebApps {
          */
         setBackgroundColor(color: string): void;
         /**
+         * Bot API 7.10+
+         * A method that sets the app's bottom bar color in the #RRGGBB format. You can also use the keywords bg_color, secondary_bg_color and bottom_bar_bg_color.
+         */
+        setBottomBarColor(color: string): void;
+        /**
          * Bot API 6.2+
          * A method that enables a confirmation dialog while the user is trying to close the Web App.
         */
@@ -179,6 +188,12 @@ export declare namespace TelegramWebApps {
          * If an optional callback parameter was passed, the callback function will be called and the invoice status will be passed as the first argument.
          */
         openInvoice(url: string, callback?: (invoice_status: IInvoiceStatus) => void): void;
+        /**
+         * Bot API 7.8+
+         * A method that opens the native story editor with the media specified in the media_url parameter as an HTTPS URL.
+         * An optional params argument of the type StoryShareParams describes additional sharing settings.
+         */
+        shareToStory(media_url: string, params?: StoryShareParams): void;
         /**
          * Bot API 6.2+ 
          * A method that shows a native popup described by the params argument of the type PopupParams.
@@ -316,6 +331,11 @@ export declare namespace TelegramWebApps {
          */
         header_bg_color?: string;
         /**
+         * Bot API 7.10+ Bottom background color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-bottom-bar-bg-color).
+         */
+        bottom_bar_bg_color?: string;
+        /**
          * Bot API 7.0+ 
          * Accent text color in the #RRGGBB format.
          * Also available as the CSS variable var(--tg-theme-accent-text-color).
@@ -335,6 +355,11 @@ export declare namespace TelegramWebApps {
          */
         section_header_text_color?: string;
         /**
+         * Bot API 7.6+ Section separator color in the #RRGGBB format.
+         * Also available as the CSS variable var(--tg-theme-section-separator-color).
+         */
+        section_separator_color?: string;
+        /**
          * Bot API 7.0+ 
          * Subtitle text color in the #RRGGBB format.
          * Also available as the CSS variable var(--tg-theme-subtitle-text-color).
@@ -346,6 +371,37 @@ export declare namespace TelegramWebApps {
          * Also available as the CSS variable var(--tg-theme-destructive-text-color).
          */
         destructive_text_color?: string;
+    }
+
+    interface StoryShareParams {
+        /**
+         * The caption to be added to the media, 0-200 characters for regular users and 0-2048 characters for premium subscribers.
+         */
+        text?: string;
+        /**
+         * An object that describes a widget link to be included in the story.
+         * 
+         * Note that only premium subscribers can post stories with links.
+         */
+        widget_link?: StoryWidgetLink;
+    }
+
+    interface StoryWidgetLink {
+        /**
+         * The URL to be included in the story.
+         */
+        url: string;
+        /**
+         * The name to be displayed for the widget link, 0-48 characters.
+         */
+        name?: string;
+    }
+
+    interface ScanQrPopupParams {
+        /**
+         * Optional. The text to be displayed under the 'Scan QR' heading, 0-64 characters.
+         */
+        text?: String;
     }
 
     interface PopupParams {
@@ -362,13 +418,6 @@ export declare namespace TelegramWebApps {
          * Set to [{“type”:“close”}] by default.
          */
         buttons?: PopupButton[];
-    }
-
-    interface ScanQrPopupParams {
-        /**
-         * Optional. The text to be displayed under the 'Scan QR' heading, 0-64 characters.
-         */
-        text?: String;
     }
 
     interface PopupButton {
@@ -605,6 +654,20 @@ export declare namespace TelegramWebApps {
          */
         isActive: boolean;
         /**
+         * Bot API 7.10+ Shows whether the button has a shine effect. Set to false by default.
+         */
+        hasShineEffect: boolean;
+        /**
+         * Bot API 7.10+ Position of the secondary button. Not defined for the main button. It applies only if both the main and secondary buttons are visible. Set to left by default.
+         * 
+         * Supported values:
+         * - left, displayed to the left of the main button,
+         * - right, displayed to the right of the main button,
+         * - top, displayed above the main button,
+         * - bottom, displayed below the main button.
+         */
+        position: PositionTypes;
+        /**
          * Readonly. Shows whether the button is displaying a loading indicator.
          */
         isProgressVisible: boolean;
@@ -664,6 +727,10 @@ export declare namespace TelegramWebApps {
          * Button text color.
          */
         text_color?: string;
+        /**
+         * Bot API 7.10+ enable shine effect.
+         */
+        has_shine_effect?: boolean;
         /**
          * Enable the button.
          */
