@@ -503,7 +503,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the callback function will be called and the first argument will contain the error. 
          * In case of success, the first argument will be null and the values will be passed as the second argument.
          */
-        getItems(key: string, callback: (error: Error | null, value?: string) => void): CloudStorage;
+        getItems(key: string[], callback: (error: Error | null, value?: string) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that removes a value from the cloud storage using the specified key. 
@@ -523,7 +523,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the first argument will contain the error. 
          * In case of success, the first argument will be null and the second argument will be a boolean indicating whether the values were removed.
          */
-        removeItems(key: string, callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
+        removeItems(key: string[], callback?: (error: Error | null, confirm: boolean) => void): CloudStorage;
         /**
          * Bot API 6.9+ 
          * A method that receives the list of all keys stored in the cloud storage. 
@@ -531,7 +531,7 @@ export declare namespace TelegramWebApps {
          * In case of an error, the callback function will be called and the first argument will contain the error. 
          * In case of success, the first argument will be null and the list of keys will be passed as the second argument.
          */
-        getKeys(callback: (error: Error | null, keys?: any) => void): CloudStorage;
+        getKeys(callback: (error: Error | null, keys?: Record<string, string>) => void): CloudStorage;
     }
 
     interface BiometricManager {
