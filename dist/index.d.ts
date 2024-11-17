@@ -1198,11 +1198,15 @@ export declare namespace TelegramWebApps {
         /**
          * Unix time when the form was opened.
          */
-        auth_date?: number;
+        auth_date: number;
         /**
          * A hash of all passed parameters, which the bot server can use to check their validity.
          */
-        hash?: string;
+        hash: string;
+        /**
+         * A signature of all passed parameters (except hash), which the third party can use to check their validity.
+         */
+        signature: string;
     }
 
     interface WebAppUser {
