@@ -995,6 +995,66 @@ export declare namespace TelegramWebApps {
         speed_accuracy: number | null;
     }
 
+    interface DeviceStorage {
+        /**
+         * Bot API 9.0+ A method that stores a value in the device's local storage using the specified key.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was stored.
+         */
+        setItem(key: string, value: string, callback?: (error: Error | null, confirm: boolean) => void): DeviceStorage;
+        /**
+         * Bot API 9.0+ A method that receives a value from the device's local storage using the specified key.
+         * 
+         * In case of an error, the callback function will be called and the first argument will contain the error. In case of success, the first argument will be null and the value will be passed as the second argument.
+         */
+        getItem(key: string, callback: (error: Error | null, value?: string) => void): DeviceStorage;
+        /**
+         * Bot API 9.0+ A method that removes a value from the device's local storage using the specified key.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was removed.
+         */
+        removeItem(key: string, callback?: (error: Error | null, confirm: boolean) => void): DeviceStorage;
+        /**
+         * Bot API 9.0+ A method that clears all keys previously stored by the bot in the device's local storage.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether all values were removed.
+         */
+        clear(callback?: (error: Error | null, confirm: boolean) => void): DeviceStorage;
+    }
+
+    interface SecureStorage {
+        /**
+         * Bot API 9.0+ A method that stores a value in the device's secure storage using the specified key.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was stored.
+         */
+        setItem(key: string, value: string, callback?: (error: Error | null, confirm: boolean) => void): SecureStorage;
+        /**
+         * Bot API 9.0+ A method that receives a value from the device's secure storage using the specified key.
+         * 
+         * In case of an error, the callback function will be called and the first argument will contain the error. In case of success, the first argument will be null and the value will be passed as the second argument. If the key was not found, the second argument will be null, and the third argument will be a boolean indicating whether the key can be restored from the current device.
+         */
+        getItem(key: string, callback: (error: Error | null, value?: string, canRestore?: boolean) => void): SecureStorage;
+        /**
+         * Bot API 9.0+ A method that attempts to restore a key that previously existed on the current device. When called, the user will be asked for permission to restore the value.
+         * 
+         * If the user declines or an error occurs, the first argument in the callback will contain the error. If restored successfully, the first argument will be null and the second argument will contain the restored value.
+         */
+        restoreItem(key: string, callback: (error: Error | null, value?: string) => void): SecureStorage;
+        /**
+         * Bot API 9.0+ A method that removes a value from the device's secure storage using the specified key.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was removed.
+         */
+        removeItem(key: string, callback?: (error: Error | null, confirm: boolean) => void): SecureStorage;
+        /**
+         * Bot API 9.0+ A method that clears all keys previously stored by the bot in the device's secure storage.
+         * 
+         * If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether all values were removed.
+         */
+        clear(callback?: (error: Error | null, confirm: boolean) => void): SecureStorage;
+    }
+
     interface SettingsButton {
         /**
          * 	Shows whether the context menu item is visible. Set to false by default.
