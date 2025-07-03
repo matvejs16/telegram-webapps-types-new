@@ -328,13 +328,15 @@ export declare namespace TelegramWebApps {
          */
         shareToStory(media_url: string, params?: StoryShareParams): void;
         /**
-         * Bot API 8.0+ A method that opens a dialog allowing the user to share a message provided by the bot.
+         * Bot API 8.0+
+         * A method that opens a dialog allowing the user to share a message provided by the bot.
          * If an optional callback parameter is provided, the callback function will be called with a boolean as the first argument, indicating whether the message was successfully sent.
          * The message id passed to this method must belong to a PreparedInlineMessage previously obtained via the Bot API method savePreparedInlineMessage.
          */
         shareMessage(message_id: string, callback?: (sent: boolean) => void): void;
         /**
-         * Bot API 8.0+ A method that opens a dialog allowing the user to set the specified custom emoji as their status.
+         * Bot API 8.0+
+         * A method that opens a dialog allowing the user to set the specified custom emoji as their status.
          * An optional params argument of type EmojiStatusParams specifies additional settings, such as duration.
          * If an optional callback parameter is provided, the callback function will be called with a boolean as the first argument, indicating whether the status was set.
          * 
@@ -342,15 +344,23 @@ export declare namespace TelegramWebApps {
          */
         setEmojiStatus(custom_emoji_id: string, params?: EmojiStatusParams, callback?: (set: boolean) => void): void;
         /**
-         * Bot API 8.0+ A method that shows a native popup requesting permission for the bot to manage user's emoji status.
+         * Bot API 8.0+
+         * A method that shows a native popup requesting permission for the bot to manage user's emoji status.
          * If an optional callback parameter was passed, the callback function will be called when the popup is closed and the first argument will be a boolean indicating whether the user granted this access.
          */
         requestEmojiStatusAccess(callback?: (confirm: boolean) => void): void;
         /**
-         * ot API 8.0+ A method that displays a native popup prompting the user to download a file specified by the params argument of type DownloadFileParams.
+         * Bot API 8.0+
+         * A method that displays a native popup prompting the user to download a file specified by the params argument of type DownloadFileParams.
          * If an optional callback parameter is provided, the callback function will be called when the popup is closed, with the first argument as a boolean indicating whether the user accepted the download request.
          */
         downloadFile(params: DownloadFileParams, callback?: (confirm: boolean) => void): void;
+        /**
+         * Bot API 9.1+
+         * A method that hides the on-screen keyboard, if it is currently visible.
+         * Does nothing if the keyboard is not active.
+         */
+        hideKeyboard(): void;
         /**
          * Bot API 6.2+ 
          * A method that shows a native popup described by the params argument of the type PopupParams.
