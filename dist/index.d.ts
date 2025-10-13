@@ -188,6 +188,16 @@ export declare namespace TelegramWebApps {
          */
         LocationManager: LocationManager;
         /**
+         * This object provides access to persistent local storage on the user’s device. It is conceptually similar to the browser's localStorage API, but integrated within the Telegram client. All data is stored locally and is available only to the bot that created it. Each bot can store up to 5 MB per user using this storage.
+         */
+        DeviceStorage: DeviceStorage;
+        /**
+         * This object provides access to a secure storage on the user’s device for sensitive data. On iOS, it uses the system Keychain; on Android, it uses the Keystore. This ensures that all stored values are encrypted at rest and inaccessible to unauthorized applications.
+         * 
+         * Secure storage is suitable for storing tokens, secrets, authentication state, and other sensitive user-specific information. Each bot can store up to 10 items per user.
+         */
+        SecureStorage: SecureStorage;
+        /**
          * Returns true if the user's app supports a version of the Bot API that is equal to or higher than the version passed as the parameter.
          */
         isVersionAtLeast(version: number): boolean;
